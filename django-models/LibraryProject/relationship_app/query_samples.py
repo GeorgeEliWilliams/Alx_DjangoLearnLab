@@ -6,11 +6,11 @@ books_by_orwell = orwell.books.all()
 print("Books by George Orwell:", books_by_orwell)
 
 # Query 2: List all books in a library
-central_library = Library.objects.get(name="Central Library")
+library_name = "Central Library"
+central_library = Library.objects.get(name=library_name)
 books_in_library = central_library.books.all()
 print("Books in Central Library:", books_in_library)
 
 # Query 3: Retrieve the librarian for a library
 librarian = central_library.librarian
 print("Librarian of Central Library:", librarian.name)
-t
