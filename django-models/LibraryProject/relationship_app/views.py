@@ -1,5 +1,11 @@
 from django.shortcuts import render
 from .models import Book
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login
+
 
 def list_books(request):
     books = Book.objects.all()
@@ -13,10 +19,7 @@ class LibraryDetailView(DetailView):
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
 
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.shortcuts import render, redirect
-from django.contrib import messages
+
 
 def login_view(request):
     if request.method == 'POST':
