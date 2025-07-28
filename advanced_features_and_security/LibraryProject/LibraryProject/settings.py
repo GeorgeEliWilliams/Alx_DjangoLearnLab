@@ -158,3 +158,28 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'", 'https://trusted.cdn.com')
 CSP_STYLE_SRC = ("'self'", 'https://trusted.cdn.com')
 CSP_IMG_SRC = ("'self'", 'data:')
+
+
+
+# Force all HTTP requests to redirect to HTTPS
+SECURE_SSL_REDIRECT = True  # Redirect all requests to HTTPS
+
+# HTTP Strict Transport Security (HSTS) Settings
+SECURE_HSTS_SECONDS = 31536000  # Browser should only access via HTTPS for 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow site to be included in browser preload lists
+
+# Secure Cookies: ensure cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True  # Secure session cookie
+CSRF_COOKIE_SECURE = True     # Secure CSRF cookie
+
+# Secure HTTP Headers
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking by disallowing framing
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME-type sniffing
+SECURE_BROWSER_XSS_FILTER = True  # Enable browser's XSS protection (Deprecated in newer browsers)
+
+# Additional Production Security (Optional)
+# SECURE_REFERRER_POLICY = 'same-origin'
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # If behind a proxy/load balancer
+
+# DEBUG = False should be set in production to avoid leaking sensitive info
