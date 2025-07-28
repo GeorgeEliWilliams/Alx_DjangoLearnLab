@@ -123,3 +123,38 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False  # ✅ Important for production
+
+# Browser-based protections
+SECURE_BROWSER_XSS_FILTER = True  # ✅ XSS protection
+SECURE_CONTENT_TYPE_NOSNIFF = True  # ✅ Prevent MIME type sniffing
+
+# Clickjacking protection
+X_FRAME_OPTIONS = 'DENY'  # or 'SAMEORIGIN' depending on your needs
+
+# CSRF protection via HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Stronger session security
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Optional: force HTTPS redirect
+SECURE_SSL_REDIRECT = True
+
+
+INSTALLED_APPS += ['csp']
+
+MIDDLEWARE = [
+    'csp.middleware.CSPMiddleware',
+    # other middleware
+]
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://trusted.cdn.com')
+CSP_STYLE_SRC = ("'self'", 'https://trusted.cdn.com')
+CSP_IMG_SRC = ("'self'", 'data:')
