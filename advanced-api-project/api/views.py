@@ -3,6 +3,7 @@ from rest_framework import generics, permissions
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView  
 from .models import Book
 from .serializers import BookSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 
 class BookListCreateView(generics.ListCreateAPIView):
@@ -12,6 +13,7 @@ class BookListCreateView(generics.ListCreateAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_permissions(self):
         if self.request.method == 'POST':
@@ -29,6 +31,7 @@ class BookRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_permissions(self):
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:
