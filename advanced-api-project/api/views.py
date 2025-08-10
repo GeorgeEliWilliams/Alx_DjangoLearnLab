@@ -3,9 +3,7 @@ from rest_framework import generics, permissions
 from .models import Book
 from .serializers import BookSerializer
 
-# ------------------------------
-# LIST + CREATE VIEW
-# ------------------------------
+
 class BookListCreateView(generics.ListCreateAPIView):
     """
     GET: List all books
@@ -16,9 +14,10 @@ class BookListCreateView(generics.ListCreateAPIView):
 
     def get_permissions(self):
         if self.request.method == 'POST':
-            return [permissions.IsAuthenticated()]
-        return [permissions.AllowAny()]
-
+            permission_classes = [permissions.IsAuthenticated]
+        else:
+            permission_classes = [permissions.AllowAny]
+        return [permission() for permission in permission_classes]
 
 
 class BookRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
@@ -32,5 +31,7 @@ class BookRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_permissions(self):
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:
-            return [permissions.IsAuthenticated()]
-        return [permissions.AllowAny()]
+            permission_classes = [permissions.IsAuthenticated]
+        else:
+            permission_classes = [permissions.AllowAny]
+        return [permission() for permission in permission_classes]
