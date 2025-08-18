@@ -102,3 +102,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "blog/static")]
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Authentication redirects
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "profile"
+LOGOUT_REDIRECT_URL = "login"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
