@@ -14,3 +14,8 @@
     </main>
 </body>
 </html>
+
+<form method="get" action="{% url 'post_list' %}">
+  <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+  <button type="submit">Search</button>
+</form>

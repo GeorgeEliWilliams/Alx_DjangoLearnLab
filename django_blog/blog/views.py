@@ -10,6 +10,27 @@ from .models import Post
 from .forms import PostForm
 from .models import Post, Comment
 from .forms import CommentForm
+from django.db.models import Q
+from taggit.models import Tag
+
+
+def posts_by_tag(request, slug):
+    tag = Tag.objects.get(slug=slug)
+    posts = Post.objects.filter(tags__in=[tag])
+    return render(request, 'blog/post_list.html', {'posts': posts, 'tag': tag})
+
+def post_list(request):
+    query = request.GET.get('q')
+    posts = Post.objects.all()
+
+    if query:
+        posts = posts.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+
+    return render(request, 'blog/post_list.html', {'posts': posts})
 
 class CommentCreateView(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
